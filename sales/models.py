@@ -1,6 +1,7 @@
 from django.db import models
 from stock.models import Products
 from accounts.models import CustUser
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class SalesClerk(models.Model):
@@ -10,6 +11,7 @@ class SalesClerk(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class PaymentMethod(models.Model):
     PAYMENT_METHOD_CHOICES= [
@@ -21,6 +23,19 @@ class PaymentMethod(models.Model):
     amount = models.DecimalField(max_digits=8, decimal_places=2)
     mpesa_code = models.CharField(max_length=50, blank=True, null=True)
 
+    def clean(self):
+        if self.payment_method == 'Mpesa' and not self.mpesa_code:
+            raise ValidationError("Mpesa code required!")
+        if self.payment_method != 'Mpesa' and self.mpesa_code:
+            raise ValidationError("Mpesa code needed only when payment is via Mpesa!")
+        
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+        self.save()
+
+    def __str__(self):
+        return f"{self.amount} | {self.payment_method}"
 
 
 class SaleItems(models.Model):
