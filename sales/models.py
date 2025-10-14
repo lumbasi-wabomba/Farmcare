@@ -22,6 +22,7 @@ class PaymentMethod(models.Model):
     payment_method = models.CharField(max_length=50,choices=PAYMENT_METHOD_CHOICES)
     amount = models.DecimalField(max_digits=8, decimal_places=2)
     mpesa_code = models.CharField(max_length=50, blank=True, null=True)
+    time = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
         if self.payment_method == 'Mpesa' and not self.mpesa_code:
