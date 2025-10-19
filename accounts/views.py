@@ -1,16 +1,14 @@
-from django.shortcuts import render
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from accounts.permissions import IsAdmin, IsAdminOrOwner, IsOwner, IsSalesClerk
+from accounts.permissions import IsAdmin, IsAdminOrOwner
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import PermissionDenied
-from datetime import datetime
 from .models import CustUser, Salary
 from .serializer import CustUserSerializer, SalarySerializer
 
