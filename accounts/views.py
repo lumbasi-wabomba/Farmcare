@@ -56,7 +56,7 @@ class LogoutView(APIView):
     
 
 class ProfileViewset(viewsets.ModelViewSet):
-    permission_classes = [IsAdminOrOwner, IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     serializer_class = CustUserSerializer
     queryset = CustUser.objects.all()
