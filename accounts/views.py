@@ -63,12 +63,14 @@ class ProfileViewset(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.IsAdminOrOwner:
+        if not  user.IsAdminOrOwner:
             return CustUser.objects.all()
         return CustUser.objects.filter(id=user.id)
+       
+        
     
     def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(*args, **kwargs)
+        return super().partial_update(request, *args, **kwargs)
     
     def destroy(self, request, *args, **kwargs):
         if self.request.user !=IsAdminOrOwner:
@@ -90,3 +92,4 @@ class SalaryViewset(viewsets.ModelViewSet):
     @action(methods=['Patch'], detail=True, permission_classes=[IsAdmin])
     def partial_update(self, serializer):
         return super().perform_update(serializer)
+

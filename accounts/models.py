@@ -11,6 +11,14 @@ class CustUser(AbstractUser):
     phone = models.CharField(max_length=15)
     role = models.CharField(max_length=50, default='sales_clerk', choices=ROLES_CHOICES)
 
+    @property
+    def IsAdminOrOwner(self):
+        return self.role in ['owner', 'admin']
+    
+    @property
+    def IsSalesClerOrAdmin(self):
+        return self.role in ['sales_clerk', 'admin']
+
     def __str__(self):
         return f"{self.get_full_name()} : {self.role}"
     
