@@ -18,7 +18,7 @@ class SalesItemViewset(viewsets.ModelViewSet):
     permission_classes = [IsSalesClerkOrAdmin, IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     serializer_class = SaleItemsSerializer
-    queryset = SaleItems.objects.all().order_by('-date')
+    queryset = SaleItems.objects.all()
    
     def get_queryset(self):
         date = self.request.query_params.get('date')
@@ -32,7 +32,6 @@ class SalesItemViewset(viewsets.ModelViewSet):
         serializer.save(sales_clerk=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
-    @action(methods=['Patch'], detail=True, permission_classes=[IsAdmin])
     def partial_update(self, serializer, pk=None):
         sale = self.get_object()
         if self.request.user != 'admin':
@@ -77,5 +76,5 @@ class MOnthlyReportView(ListAPIView):
         serializer_data = list(data.values())
         return serializer_data
     
-    
+
 

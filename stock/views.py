@@ -31,7 +31,6 @@ class PurchaseViewset(viewsets.ModelViewSet):
         serializer.save(sales_clerk=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
-    @action(methods=['Patch'], detail=True, permission_classes=[IsAdmin])
     def partial_update(self, serializer, pk=None):
         purchase = self.get_object()
         if self.request.user != 'admin':
@@ -73,7 +72,7 @@ class ExpenseViewset(viewsets.ModelViewSet):
             raise PermissionDenied("an admin is required!")
         instance.delete()
 
-class ProductSeriaizerViewset(viewsets.ModelViewSet):
+class ProductViewset(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrOwner, IsAuthenticated]
     authentication_classes = [TokenAuthentication]
     serializer_class = ProductsSerializer

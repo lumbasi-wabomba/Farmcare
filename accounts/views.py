@@ -78,7 +78,7 @@ class ProfileViewset(viewsets.ModelViewSet):
         return super().destroy(request, *args, **kwargs)
     
 class SalaryViewset(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminOrOwner]
     authentication_classes = [TokenAuthentication]
     serializer_class = SalarySerializer
     queryset = Salary.objects.all()
@@ -89,7 +89,6 @@ class SalaryViewset(viewsets.ModelViewSet):
             return Salary.objects.all()
         return Salary.objects.filter(id=user.id)
     
-    @action(methods=['Patch'], detail=True, permission_classes=[IsAdmin])
     def partial_update(self, serializer):
         return super().perform_update(serializer)
 

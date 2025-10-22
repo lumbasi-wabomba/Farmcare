@@ -76,6 +76,7 @@ class SaleItems(models.Model):
             
         self.product.save()
 
+
     def __str__(self):
         return f" item: {self.product} | quantity {self.quantity}"
     
