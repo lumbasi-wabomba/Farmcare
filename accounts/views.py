@@ -22,7 +22,7 @@ class RegisterClerkView(APIView):
         if serializer.is_valid():
             user = get_user_model()
             user = CustUser.objects.create_user(**serializer.validated_data)
-            return Response({"user": CustUserSerializer(user).data},status=status.HTTP_201_CREATED, template_name='register_clerk')
+            return Response({"user": CustUserSerializer(user).data},status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class LoginView(APIView):
@@ -52,7 +52,7 @@ class LogoutView(APIView):
     def destroy(self, request):
         request.auth.delete()
         request.session.pop({'token': None})
-        return Response({"message": 'logged out successfully'},template_name='login', status=status.HTTP_200_OK)
+        return Response({"message": 'logged out successfully'}, status=status.HTTP_200_OK)
     
 
 class ProfileViewset(viewsets.ModelViewSet):
