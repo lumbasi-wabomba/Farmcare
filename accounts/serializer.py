@@ -10,7 +10,7 @@ class CustUserSerializer(serializers.ModelSerializer):
         #read_only_fields = []
 
 class SalarySerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(queryset=CustUser.objects.all(), slug_field='name', many=True, required=False)
+    user = serializers.SlugRelatedField(queryset=CustUser.objects.all(), slug_field='name', many=False, required=False)
     phone = serializers.CharField(validators=[RegexValidator(r'^\+?1?\d{9,15}$')])
     class Meta:
         model = Salary

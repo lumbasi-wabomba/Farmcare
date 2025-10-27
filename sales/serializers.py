@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 
 class SalesClerkSerializer(serializers.ModelSerializer):
-    name = serializers.SlugRelatedField(queryset=CustUser.objects.all(), slug_field='name', many=True, required=True)
+    name = serializers.SlugRelatedField(queryset=CustUser.objects.all(), slug_field='name', many=False, required=True)
     class Meta:
         model = SalesClerk
         fields = '__all__'
@@ -17,8 +17,8 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SaleItemsSerializer(serializers.ModelSerializer):
-    product = serializers.SlugRelatedField(queryset=Products.objects.all(), slug_field='name', many=True, required=True)
-    sales_clerk = serializers.SlugRelatedField(queryset=SalesClerk.objects.all(), slug_field='name', many=True, required=False)
+    product = serializers.SlugRelatedField(queryset=Products.objects.all(), slug_field='name', many=False, required=True)
+    sales_clerk = serializers.SlugRelatedField(queryset=SalesClerk.objects.all(), slug_field='name', many=False, required=False)
     class Meta:
         model = SaleItems
         fields = '__all__'
