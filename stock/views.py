@@ -62,7 +62,7 @@ class ExpenseViewset(viewsets.ModelViewSet):
     def partial_update(self, serializer):
         expense = self.get_object()
         if self.request.user != 'admin':
-            raise PermissionDenied("you must be an admin to correct the code!")
+            raise PermissionDenied("you must be an admin to correct the data!")
         serializer = self.get_serializer(expense, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()

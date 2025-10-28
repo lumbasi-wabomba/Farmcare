@@ -10,7 +10,7 @@ class Category(models.Model):
     
 class Products(models.Model):
     name = models.CharField(max_length=200, db_index=True)
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING, related_name='product_categories')
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='product_categories')
     unit_BP = models.DecimalField(max_digits=8, decimal_places=2)
     unit_SP = models.DecimalField(max_digits=8, decimal_places=2)
     no_of_Units = models.IntegerField()
@@ -33,10 +33,10 @@ class Suppliers(models.Model):
         return f"{self.name} | {self.phone}"
 
 class PurchaseItems(models.Model):
-    product= models.ForeignKey(Products, on_delete=models.DO_NOTHING, related_name='purchased_products')
+    product= models.ForeignKey(Products, on_delete=models.PROTECT, related_name='purchased_products')
     unit_BP = models.DecimalField(max_digits=8, decimal_places=2)
     no_of_Units = models.IntegerField()
-    supplier = models.ForeignKey(Suppliers, on_delete=models.DO_NOTHING, related_name='items_from_suppliers')
+    supplier = models.ForeignKey(Suppliers, on_delete=models.PROTECT, related_name='items_from_suppliers')
     date_bought = models.DateField(auto_now_add=True)
 
     def save(self, *args, **kwargs):

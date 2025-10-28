@@ -37,7 +37,7 @@ class Salary(models.Model):
     Payment_method = models.CharField(max_length=50, default='Mpesa', choices=PAYMENT_METHOD_CHOICES)
 
     def __str__(self):
-        return f"{self.name} | {self.amt_paid} | {self.Payment_method}"
+        return f"{self.user} | {self.amt_paid} | {self.Payment_method}"
     
 
 

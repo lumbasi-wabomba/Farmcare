@@ -61,7 +61,7 @@ class WeeklyReportView(ListAPIView):
         serializer_data = list(data.values())
         return serializer_data
     
-class MOnthlyReportView(ListAPIView):
+class MonthlyReportView(ListAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAdminOrOwner, IsAuthenticated]
     queryset = SaleItems.objects.all().prefetch_related('sold_items', 'sales_by', 'sales_payment_method')
